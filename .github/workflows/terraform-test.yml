@@ -6,9 +6,24 @@ permissions:
   contents: write
   pull-requests: write
 
-jobs:
+jobs:   
+  linting:
+    uses: './github/workflows/tf-lint.yml'
+    with:
+      path: ./test/terraform
+    secrets:
+      token: ${{ env.GITHUB_TOKEN }}
+
+  security:
+    uses: './github/workflows/tf-security.yml'
+    with:
+      path: ./test/terraform
+    secrets:
+      token: ${{ env.GITHUB_TOKEN }}
+
   terraform:
     uses: ./.github/workflows/terraform.yml
     with:
       path: ./test/terraform
-    secrets: inherit
+    secrets:
+      token: ${{ env.GITHUB_TOKEN }}
