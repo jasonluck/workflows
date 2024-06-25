@@ -48,7 +48,6 @@ jobs:
       terraform_version: ${{ inputs.terraform_version }}
       terraform_workspace: ${{ inputs.terraform_workspace }}
       variables: ${{ inputs.variables }}
-      apply: ${{ inputs.apply }}
     secrets:
       token: ${{ secrets.token }}
 
