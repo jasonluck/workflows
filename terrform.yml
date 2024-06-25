@@ -16,7 +16,6 @@ on:
         required: false
         default: 'latest'
       terrform_workspace:
-      terrform_workspace:
         description: Name of the terraform workspace.
         required: false
         default: 'default'
