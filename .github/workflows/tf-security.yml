@@ -6,10 +6,12 @@ on:
       path:
         description: The path to the working directory
         required: false
+        type: string
         default: '.'
       tfsec_version:
         description: The version of terraform to use. Defaults to the latest
         required: false
+        type: string
         default: 'latest'
 
 jobs:

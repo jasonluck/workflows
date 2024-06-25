@@ -10,22 +10,27 @@ on:
       terraform_version:
         description: The version of terraform to use. Defaults to the latest
         required: false
+        type: string
         default: 'latest'
       tfsec_version:
         description: The version of tfsec to use. Defaults to the latest
         required: false
+        type: string
         default: 'latest'
       terrform_workspace:
         description: Name of the terraform workspace.
         required: false
+        type: string
         default: 'default'
       variables:
         description: Variables to pass to terraform
         required: false
+        type: string
         default: ''
       apply:
         description: Flag to apply changes. Defaults to true
         required: false
+        type: boolean
         default: true
     secrets:
       token:
