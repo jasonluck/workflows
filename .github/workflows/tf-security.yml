@@ -1,5 +1,4 @@
 name: Terraform Security Checks
-description: Runs static code analysis against terraform workspaces to look for security issues
 on:
   workflow_call:
     inputs:
