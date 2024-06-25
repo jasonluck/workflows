@@ -22,6 +22,9 @@ on:
         required: false
         type: string
         default: ''
+    secrets:
+      token:
+        required: true
 
 jobs:
   linting:
@@ -41,7 +44,7 @@ jobs:
           tf_actions_fmt_write: true
           args: '${{ inputs.variables }}'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.token }}
           TF_WORKSPACE: ${{ inputs.terraform_workspace }} 
 
       - name: 'TFLint'
