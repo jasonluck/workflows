@@ -26,12 +26,10 @@ jobs:
         with:
           sarif_file: tfsec.sarif         
           working_directory: ${{ inputs.path }}
-          github_token: ${{ secrets.token }}
+          tfsec_version: ${{ inputs.tfsec_version }}
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
           # Path to SARIF file relative to the root of the repository
           sarif_file: tfsec.sarif
-          working_directory: ${{ inputs.path }}
-          tfsec_version: ${{ inputs.tfsec_version }}
