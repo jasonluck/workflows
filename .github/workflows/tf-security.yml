@@ -17,6 +17,7 @@ on:
 jobs:
   security:
     name: Terraform Security Analysis
+    runs-on: unbuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

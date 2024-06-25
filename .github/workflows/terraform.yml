@@ -34,7 +34,6 @@ on:
         default: true
     secrets:
       token:
-        description: GitHub authentication token
         required: true
 
 

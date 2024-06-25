@@ -27,6 +27,7 @@ on:
 jobs:
   linting:
     name: Terraform Linting
+    runs-on: unbuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
