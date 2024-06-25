@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-dir: ${{ inputs.path }}
+        working-directory: ${{ inputs.path }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
