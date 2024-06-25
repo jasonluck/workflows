@@ -11,6 +11,10 @@ on:
         description: The version of terraform to use. Defaults to the latest
         required: false
         default: 'latest'
+      tfsec_version:
+        description: The version of tfsec to use. Defaults to the latest
+        required: false
+        default: 'latest'
       terrform_workspace:
         description: Name of the terraform workspace.
         required: false
@@ -29,6 +33,28 @@ on:
 
 
 jobs:
+  linting:
+    uses: ./.github/workflows/tf-lint.yml
+    permissions:
+      contents: write
+      pull-requests: write
+    with:
+      path: ${{ inputs.path }}
+      terraform_version: ${{ inputs.terraform_version }}
+      terraform_workspace: ${{ inputs.terraform_workspace }}
+      variables: ${{ inputs.variables }}
+      apply: ${{ inputs.apply }}
+      token: ${{ secrets.token }}
+
+  security:
+    uses: ./.github/workflows/tf-security.yml
+    permissions:
+      contents: read
+      pull-requests: write
+    with:
+      path: ${{ inputs.path }}
+      tfsec_version: ${{ inputs.tfsec_version }}
+
   terraform:
     name: Terraform
     runs-on: unbuntu-latest
