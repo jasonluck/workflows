@@ -62,7 +62,7 @@ jobs:
 
   terraform:
     name: Terraform
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
