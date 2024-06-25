@@ -1,35 +1,35 @@
 name: Terraform Security Checks
-description: Runs static code analysis against terraform workspaces to look for security issues
 on:
   workflow_call:
     inputs:
       path:
         description: The path to the working directory
         required: false
+        type: string
         default: '.'
       tfsec_version:
         description: The version of terraform to use. Defaults to the latest
         required: false
+        type: string
         default: 'latest'
 
 jobs:
   security:
     name: Terraform Security Analysis
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: tfsec
-        uses: tfsec/tfsec-sarif-action@main
+        uses: aquasecurity/tfsec-sarif-action@v0.1.4
         with:
           sarif_file: tfsec.sarif         
           working_directory: ${{ inputs.path }}
-          github_token: ${{ secrets.token }}
+          tfsec_version: ${{ inputs.tfsec_version }}
 
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v3
         with:
           # Path to SARIF file relative to the root of the repository
           sarif_file: tfsec.sarif
-          working_directory: ${{ inputs.path }}
-          tfsec_version: ${{ inputs.tfsec_version }}

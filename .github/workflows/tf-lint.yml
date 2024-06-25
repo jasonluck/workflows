@@ -1,44 +1,49 @@
 name: Terraform Linting
-description: Linting for terraform projects
 on:
   workflow_call:
     inputs:
       path:
         description: The path to the working directory
         required: false
+        type: string
         default: '.'
       terraform_version:
         description: The version of terraform to use. Defaults to the latest
         required: false
+        type: string
         default: 'latest'
-      terrform_workspace:
+      terraform_workspace:
         description: Name of the terraform workspace.
         required: false
+        type: string
         default: 'default'
       variables:
         description: Variables to pass to terraform
         required: false
+        type: string
         default: ''
+    secrets:
+      token:
+        required: true
 
 jobs:
   linting:
     name: Terraform Linting
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.path }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ inputs.terraform_version }}
 
       - name: 'Terraform Format'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: ${{ inputs.terraform_version }}
-          tf_actions_subcommand: 'fmt'
-          tf_actions_working_dir: ${{ inputs.path }}
-          tf_actions_comment: true
-          tf_actions_fmt_write: true
-          args: '${{ inputs.variables }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TF_WORKSPACE: ${{ inputs.terraform_workspace }} 
+        run: terraform fmt -write=true -recursive
 
       - name: 'TFLint'
         uses: pauloconnor/tflint-action@v0.0.2 
