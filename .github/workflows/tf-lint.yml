@@ -30,22 +30,20 @@ jobs:
   linting:
     name: Terraform Linting
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-dir: ${{ inputs.path }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: 'Terraform Format'
-        uses: hashicorp/terraform-github-actions@master
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
         with:
-          tf_actions_version: ${{ inputs.terraform_version }}
-          tf_actions_subcommand: 'fmt'
-          tf_actions_working_dir: ${{ inputs.path }}
-          tf_actions_comment: true
-          tf_actions_fmt_write: true
-          args: '${{ inputs.variables }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.token }}
-          TF_WORKSPACE: ${{ inputs.terraform_workspace }} 
+          terraform_version: ${{ inputs.terraform_version }}
+
+      - name: 'Terraform Format'
+        run: terraform fmt -write=true -recursive
 
       - name: 'TFLint'
         uses: pauloconnor/tflint-action@v0.0.2 
