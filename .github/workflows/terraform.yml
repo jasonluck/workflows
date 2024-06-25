@@ -89,7 +89,7 @@ jobs:
           tf_actions_subcommand: 'plan'
           tf_actions_working_dir: ${{ inputs.path }}
           tf_actions_comment: true
-          args: '-out="${{ runner.temp }}/tfplan" ${{ inputs.variables }}'
+          args: '-out=./tfplan ${{ inputs.variables }}'
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
           TF_WORKSPACE: ${{ inputs.terraform_workspace }} 
@@ -102,7 +102,7 @@ jobs:
           tf_actions_subcommand: 'apply'
           tf_actions_working_dir: ${{ inputs.path }}
           tf_actions_comment: true
-          args: '"${{ runner.temp }}/tfplan" ${{ inputs.variables }}'
+          args: './tfplan ${{ inputs.variables }}'
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
           TF_WORKSPACE: ${{ inputs.terraform_workspace }}    
