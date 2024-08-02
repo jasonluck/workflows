@@ -12,9 +12,10 @@ on:
         required: false
         type: string
         default: 'latest'
+    secrets:
       token:
         description: "GitHub token to use for authenticating with this instance of GitHub. The token needs the `security-events: write` permission."
-        required: false
+        required: true
         default: ${{ github.token }}
 
 jobs:
@@ -38,4 +39,4 @@ jobs:
           # Path to SARIF file relative to the root of the repository
           sarif_file: tfsec.sarif
           category: tf-sec
-          token: ${{ inputs.token }}
+          token: ${{ secrets.token }}

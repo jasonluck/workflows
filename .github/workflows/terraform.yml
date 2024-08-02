@@ -32,8 +32,9 @@ on:
         required: false
         type: boolean
         default: true
+    secrets:
       token:
-        description: "GitHub token to use for authenticating with this instance of GitHub. The token needs the `security-events: write` permission."
+        description: "GitHub token to use for authenticating with this instance of GitHub. The token needs the `content: write` permission."
         required: false
         default: ${{ github.token }}
 
@@ -49,6 +50,8 @@ jobs:
       terraform_version: ${{ inputs.terraform_version }}
       terraform_workspace: ${{ inputs.terraform_workspace }}
       variables: ${{ inputs.variables }}
+    secrets:
+      token: ${{ secrets.token }}
 
   security:
     uses: ./.github/workflows/tf-security.yml
@@ -58,7 +61,8 @@ jobs:
     with:
       path: ${{ inputs.path }}
       tfsec_version: ${{ inputs.tfsec_version }}
-      token: ${{ inputs.token }}
+    secrets:
+      token: ${{ secrets.token }}
 
   terraform:
     name: Terraform
@@ -98,7 +102,7 @@ jobs:
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.token }}
           script: |
             // 1. Retrieve existing bot comments for the PR
             const { data: comments } = await github.rest.issues.listComments({
