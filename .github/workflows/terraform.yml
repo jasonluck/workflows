@@ -34,9 +34,7 @@ on:
         default: true
     secrets:
       token:
-        description: "GitHub token to use for authenticating with this instance of GitHub. The token needs the `content: write` permission."
-        required: false
-        default: ${{ github.token }}
+        required: true
 
 
 jobs:

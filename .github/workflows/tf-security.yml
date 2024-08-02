@@ -14,9 +14,7 @@ on:
         default: 'latest'
     secrets:
       token:
-        description: "GitHub token to use for authenticating with this instance of GitHub. The token needs the `security-events: write` permission."
         required: true
-        default: ${{ github.token }}
 
 jobs:
   security:
