@@ -55,7 +55,9 @@ jobs:
     uses: ./.github/workflows/tf-security.yml
     permissions:
       contents: read
+      actions: read
       pull-requests: write
+      security-events: write
     with:
       path: ${{ inputs.path }}
       tfsec_version: ${{ inputs.tfsec_version }}
