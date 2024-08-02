@@ -32,9 +32,10 @@ on:
         required: false
         type: boolean
         default: true
-    secrets:
       token:
-        required: true
+        description: "GitHub token to use for authenticating with this instance of GitHub. The token needs the `security-events: write` permission."
+        required: false
+        default: ${{ github.token }}
 
 
 jobs:
@@ -48,8 +49,6 @@ jobs:
       terraform_version: ${{ inputs.terraform_version }}
       terraform_workspace: ${{ inputs.terraform_workspace }}
       variables: ${{ inputs.variables }}
-    secrets:
-      token: ${{ secrets.token }}
 
   security:
     uses: ./.github/workflows/tf-security.yml
@@ -59,7 +58,7 @@ jobs:
     with:
       path: ${{ inputs.path }}
       tfsec_version: ${{ inputs.tfsec_version }}
-      token: ${{ secrets.token }}
+      token: ${{ inputs.token }}
 
   terraform:
     name: Terraform

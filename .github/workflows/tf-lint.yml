@@ -22,9 +22,10 @@ on:
         required: false
         type: string
         default: ''
-    secrets:
       token:
-        required: true
+        description: "GitHub token to use for authenticating with this instance of GitHub. The token needs the `security-events: write` permission."
+        required: false
+        default: ${{ github.token }}
 
 jobs:
   linting:
