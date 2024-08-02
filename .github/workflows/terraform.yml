@@ -59,6 +59,7 @@ jobs:
     with:
       path: ${{ inputs.path }}
       tfsec_version: ${{ inputs.tfsec_version }}
+      token: ${{ secrets.token }}
 
   terraform:
     name: Terraform
